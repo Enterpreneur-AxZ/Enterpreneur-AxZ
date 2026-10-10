@@ -1,0 +1,1435 @@
+<!DOCTYPE html>  <html lawport" content="width=device-width, initial-scale=1.0">  
+  <title>Enterpreneur AxZ - Premium Building Materials</title>    <script src="https://cdn.tailwindcss.com"></script>    <script src="https://unpkg.com/lucide@latest"></script>  ng="en">
+
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="vie  
+  <script>  
+    tailwind.config = {  
+      darkMode: 'class',  
+      theme: {  
+        extend: {  
+          colors: {  
+            slate: { 850: '#151e2e', 900: '#0f172a', 950: '#020617' },  
+            amber: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' }  
+          },  
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }  
+        }  
+      }  
+    }  
+  </script>    <style>  
+    ::-webkit-scrollbar { width: 8px; height: 8px; }  
+    ::-webkit-scrollbar-track { background: #020617; }  
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }  
+    ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }  
+      
+    .loader {  
+      border: 3px solid rgba(245, 158, 11, 0.2);  
+      border-top: 3px solid #F59E0B;  
+      border-radius: 50%;  
+      width: 24px;  
+      height: 24px;  
+      animation: spin 1s linear infinite;  
+    }  
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }  
+      
+    input[type="number"]::-webkit-inner-spin-button,   
+    input[type="number"]::-webkit-outer-spin-button {   
+      -webkit-appearance: none; margin: 0;   
+    }  
+  </style>  </head>  
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950 overflow-hidden relative" id="bodyWrapper">    <!-- Premium Background connecting hearts and minds -->    <div class="fixed inset-0 z-[-2] bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-30"></div>  
+  <div class="fixed inset-0 z-[-1] bg-gradient-to-br from-slate-950 via-slate-900/90 to-amber-950/50 backdrop-blur-[4px]"></div>    <!-- AUTHENTICATION OVERLAY -->    <div id="authOverlay" class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-[100] flex items-center justify-center p-4 transition-opacity duration-300">  
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md shadow-2xl p-8 relative overflow-hidden">  
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-rose-500"></div>  <div class="text-center mb-8">  
+    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-rose-500 flex items-center justify-center text-slate-950 shadow-[0_0_20px_rgba(245,158,11,0.4)] mx-auto mb-4">  
+      <i data-lucide="heart-handshake" class="w-8 h-8 stroke-[2.5]"></i>  
+    </div>  
+    <h2 class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500 tracking-tight mb-1">Enterpreneur AxZ</h2>  
+    <p class="text-sm text-amber-200/60 font-medium">Building Your Dream Home. Supplying Excellence with Heart.</p>  
+  </div>  
+
+  <div id="authLoadingState" class="flex flex-col items-center justify-center py-8 hidden">  
+    <div class="loader mb-4"></div>  
+    <p class="text-xs font-bold text-amber-400 animate-pulse">Authenticating Securely...</p>  
+  </div>  
+
+  <form id="profileSetupForm" class="space-y-5 hidden">  
+    <div>  
+      <label class="block text-xs font-bold text-slate-300 mb-1 tracking-wide uppercase">Email Address</label>  
+      <input type="email" id="authEmailInput" required placeholder="Enter your email" autocomplete="email" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition shadow-inner">  
+    </div>  
+
+    <!-- Secure PIN Section (Hidden by default, shown for Owner/Assistant) -->  
+    <div id="pinSection" class="hidden space-y-2 p-4 bg-slate-950/50 rounded-xl border border-rose-500/30">  
+      <label class="block text-xs font-bold text-rose-400 mb-1 tracking-wide uppercase flex items-center gap-2">  
+        <i data-lucide="lock" class="w-3 h-3"></i> Secure Access PIN Required  
+      </label>  
+      <input type="password" id="authPinInput" placeholder="Enter 4-Digit PIN" maxlength="4" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-sm text-white tracking-widest text-center font-mono focus:outline-none focus:border-amber-400 transition shadow-inner">  
+    </div>  
+
+    <!-- Customer Setup Section (Hidden by default, shown for normal users) -->  
+    <div id="customerSection" class="hidden space-y-5">  
+      <div>  
+        <label class="block text-xs font-bold text-slate-300 mb-1 tracking-wide uppercase">Full Name / Company Name</label>  
+        <input type="text" id="authNameInput" placeholder="E.g., Sharma Constructions" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-amber-400 transition shadow-inner">  
+      </div>  
+      <div>  
+        <label class="block text-xs font-bold text-slate-300 mb-1 tracking-wide uppercase">Customer Type</label>  
+        <select id="authTierInput" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-amber-400 transition shadow-inner cursor-pointer outline-none">  
+          <option value="Base">Individual (Base Tier - Less Material)</option>  
+          <option value="Moderate">Contractor (Moderate Tier - Mid Level)</option>  
+          <option value="Construction">Business (Construction Tier - Bulk Need)</option>  
+        </select>  
+      </div>  
+    </div>  
+
+    <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-sm uppercase tracking-wider shadow-[0_0_15px_rgba(245,158,11,0.3)] hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] transition-all flex justify-center items-center gap-2 mt-2">  
+      <span id="submitBtnText">Continue</span>  
+      <i data-lucide="arrow-right" class="w-4 h-4"></i>  
+    </button>  
+  </form>  
+</div>
+
+  </div>    <div id="mainAppContent" class="opacity-0 transition-opacity duration-500 hidden flex-col min-h-screen">  <aside class="bg-amber-500 text-slate-950 text-xs sm:text-sm font-semibold py-2 px-4 shadow-md z-40 relative">  
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">  
+    <div class="flex items-center gap-2">  
+      <i data-lucide="truck" class="w-4 h-4 shrink-0"></i>  
+      <span class="truncate font-bold">Same-day delivery across the state for bulk orders!</span>  
+    </div>  
+    <div class="flex items-center gap-4 shrink-0">  
+      <div class="text-xs font-bold bg-slate-950 text-amber-400 px-3 py-1 rounded-full flex items-center gap-2 border border-amber-400/30">  
+        <i data-lucide="user" class="w-3.5 h-3.5"></i>  
+        <span id="currentUserDisplay">User</span>  
+        <span id="currentUserRole" class="text-slate-500 uppercase ml-1"></span>  
+      </div>  
+    </div>  
+  </div>  
+</aside>  
+
+<header class="sticky top-0 z-30 bg-slate-900/80 backdrop-blur-xl border-b border-white/5">  
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">  
+    <div class="flex items-center justify-between h-20">  
+      <div class="flex items-center gap-3">  
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-rose-500 flex items-center justify-center text-slate-950 shadow-lg shadow-amber-500/20">  
+          <i data-lucide="heart-handshake" class="w-6 h-6 stroke-[2.5]"></i>  
+        </div>  
+        <span class="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-1.5 drop-shadow-md">  
+          Enterpreneur <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-500">AxZ</span>  
+        </span>  
+      </div>  
+
+      <div class="flex items-center gap-3">  
+        <button id="openEstimatorBtn" onclick="window.openEstimator()" class="hidden relative inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-4 py-2.5 rounded-xl font-bold transition-all border border-slate-700 shadow-md">  
+          <i data-lucide="calculator" class="w-5 h-5 text-amber-400"></i>  
+          <span class="hidden sm:inline text-xs uppercase tracking-wider">Estimator</span>  
+        </button>  
+
+        <button id="openAdminSuiteBtn" onclick="window.openAdminModal()" class="hidden relative inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2.5 rounded-xl font-bold transition-all border border-slate-700 shadow-md">  
+          <i data-lucide="shield" class="w-5 h-5"></i>  
+          <span class="hidden sm:inline text-xs uppercase tracking-wider">Management Dashboard</span>  
+        </button>  
+
+        <button id="openQuoteDrawerBtn" onclick="window.openQuoteDrawer()" class="hidden relative inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2.5 rounded-xl font-bold shadow-lg shadow-amber-500/20 transition-all hover:scale-105">  
+          <i data-lucide="clipboard-list" class="w-5 h-5"></i>  
+          <span class="hidden sm:inline text-xs uppercase tracking-wider">My Quote</span>  
+          <span id="cartCountBadge" class="absolute -top-1.5 -right-1.5 bg-slate-950 text-amber-400 border border-amber-400 text-xs w-5 h-5 rounded-full flex items-center justify-center font-black text-[11px]">0</span>  
+        </button>  
+      </div>  
+    </div>  
+  </div>  
+</header>  
+
+<main class="flex-grow relative">  
+  <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">  
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">  
+      <div>  
+        <h2 class="text-3xl font-extrabold text-white">Live Materials Inventory</h2>  
+        <p class="text-slate-400 text-sm mt-2 max-w-xl">Browse our catalog. Your pricing is determined by your customer tier.</p>  
+      </div>  
+    </div>  
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-8 shadow-lg">  
+      <div id="categoryFilterBar" class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar text-xs">  
+        <!-- Categories rendered here -->  
+      </div>  
+    </div>  
+
+    <div id="catalogLoadingState" class="py-16 text-center flex flex-col items-center">  
+      <div class="loader mb-4"></div>  
+      <p class="text-sm font-bold text-amber-400">Syncing live inventory from Firebase...</p>  
+    </div>  
+
+    <div id="materialsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 hidden">  
+      <!-- Products rendered here -->  
+    </div>  
+  </section>  
+</main>
+
+  </div>    <!-- Quote Drawer -->    <div id="quoteDrawerOverlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden transition-opacity">  
+    <div class="fixed inset-y-0 right-0 w-full max-w-md flex">  
+      <div class="w-full bg-slate-900 border-l border-slate-800 shadow-2xl flex flex-col h-full">  
+        <div class="p-5 bg-slate-950 border-b border-slate-800 flex items-center justify-between">  
+          <div class="flex items-center gap-2">  
+            <i data-lucide="clipboard-list" class="w-5 h-5 text-amber-400"></i>  
+            <h3 class="text-lg font-bold text-white">Quote Request Builder</h3>  
+          </div>  
+          <button onclick="window.closeQuoteDrawer()" class="p-2 text-slate-400 hover:text-white rounded-lg bg-slate-800/50">  
+            <i data-lucide="x" class="w-5 h-5"></i>  
+          </button>  
+        </div>  <div class="flex-1 overflow-y-auto p-5">  
+      <div id="quoteCartItemsContainer" class="space-y-3"></div>  
+        
+      <div id="quoteEmptyNotice" class="hidden text-center py-12">  
+        <i data-lucide="shopping-cart" class="w-12 h-12 text-slate-700 mx-auto mb-3"></i>  
+        <p class="text-sm font-bold text-slate-400">Your quote list is empty.</p>  
+      </div>  
+
+      <div id="quoteFormSection" class="mt-6 pt-6 border-t border-slate-800 space-y-4 hidden">  
+        <h4 class="text-xs font-bold uppercase text-amber-400">Project Details</h4>  
+        <div>  
+          <label class="block text-xs text-slate-300 mb-1">Delivery Address *</label>  
+          <textarea id="quoteDeliveryAddress" rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-amber-400"></textarea>  
+        </div>  
+        <div>  
+          <label class="block text-xs text-slate-300 mb-1">Target Date *</label>  
+          <input type="date" id="quoteDeliveryDate" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-amber-400">  
+        </div>  
+      </div>  
+    </div>  
+
+    <div class="p-5 bg-slate-950 border-t border-slate-800">  
+      <div class="flex justify-between items-center mb-4">  
+        <span class="text-slate-400 text-sm">Estimated Total</span>  
+        <span id="quoteCartSubtotal" class="font-black text-xl text-white">₹0.00</span>  
+      </div>  
+      <button id="submitQuoteBtn" class="w-full py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl text-sm uppercase flex items-center justify-center gap-2 transition active:scale-95 disabled:opacity-50">  
+        <i data-lucide="send" class="w-4 h-4"></i> Submit Quote Request  
+      </button>  
+    </div>  
+  </div>  
+</div>
+
+  </div>    <!-- Estimator Modal -->    <div id="estimatorModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">  
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden relative my-8">  
+      <div class="bg-slate-950 p-5 border-b border-slate-800 flex justify-between items-center">  
+        <div class="flex items-center gap-2">  
+          <i data-lucide="calculator" class="w-5 h-5 text-amber-400"></i>  
+          <h3 class="text-lg font-bold text-white">Concrete Slab Estimator</h3>  
+        </div>  
+        <button onclick="window.closeEstimator()" class="text-slate-400 hover:text-white p-1 bg-slate-800 rounded">  
+          <i data-lucide="x" class="w-5 h-5"></i>  
+        </button>  
+      </div>  <div class="p-6 space-y-5">  
+    <p class="text-xs text-slate-400">Calculate required Cement, Sand, and Aggregates for a standard M20 grade concrete slab.</p>  
+      
+    <div class="grid grid-cols-3 gap-4">  
+      <div>  
+        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Length (m)</label>  
+        <input type="number" id="estLength" value="10" min="1" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-sm text-white">  
+      </div>  
+      <div>  
+        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Width (m)</label>  
+        <input type="number" id="estWidth" value="10" min="1" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-sm text-white">  
+      </div>  
+      <div>  
+        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Depth (m)</label>  
+        <input type="number" id="estDepth" value="0.15" step="0.01" min="0.05" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-sm text-white">  
+      </div>  
+    </div>  
+
+    <button onclick="window.calculateEstimate()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold border border-slate-700 rounded-xl text-sm transition">Calculate Requirements</button>  
+
+    <div id="estimatorResults" class="hidden bg-slate-950 rounded-xl p-4 border border-amber-500/30">  
+      <h4 class="text-xs font-bold text-amber-500 mb-3 uppercase tracking-wider">Estimated Materials</h4>  
+      <div class="space-y-2 text-sm text-slate-300">  
+        <div class="flex justify-between"><span>Cement (50kg Bags)</span> <strong id="resCement" class="text-white">0</strong></div>  
+        <div class="flex justify-between"><span>Sand (Tons)</span> <strong id="resSand" class="text-white">0</strong></div>  
+        <div class="flex justify-between"><span>Aggregates (Tons)</span> <strong id="resAgg" class="text-white">0</strong></div>  
+      </div>  
+      <p class="text-[10px] text-slate-500 mt-3">* Based on dry volume coefficient of 1.54 for M20 concrete.</p>  
+    </div>  
+  </div>  
+</div>
+
+  </div>    <!-- Admin Suite Modal -->    <div id="adminSuiteModal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-50 hidden overflow-y-auto">  
+    <div class="min-h-screen px-4 py-8 flex items-center justify-center">  
+      <div class="bg-slate-900 border border-amber-500/30 rounded-2xl w-full max-w-6xl shadow-2xl flex flex-col overflow-hidden">  <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex items-center justify-between">  
+      <div class="flex items-center gap-3">  
+        <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center">  
+          <i data-lucide="shield-alert" class="w-5 h-5 font-bold"></i>  
+        </div>  
+        <div>  
+          <h2 class="text-xl font-bold text-white">Management Dashboard</h2>  
+          <p class="text-xs text-slate-400">Control inventory, process quotes, and calculate POS orders.</p>  
+        </div>  
+      </div>  
+      <button onclick="window.closeAdminModal()" class="p-2 text-slate-400 hover:text-white rounded-lg bg-slate-800/50">  
+        <i data-lucide="x" class="w-5 h-5"></i>  
+      </button>  
+    </div>  
+
+    <div class="flex border-b border-slate-800 px-6 bg-slate-900 overflow-x-auto">  
+      <button id="tabBtnProducts" onclick="window.switchAdminTab('Products')" class="py-4 px-4 text-sm font-bold border-b-2 border-amber-500 text-amber-400 flex items-center gap-2 whitespace-nowrap">  
+        <i data-lucide="boxes" class="w-4 h-4"></i> Live Inventory  
+      </button>  
+      <button id="tabBtnQuotes" onclick="window.switchAdminTab('Quotes')" class="py-4 px-4 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap">  
+        <i data-lucide="inbox" class="w-4 h-4"></i> Customer Quotes  
+      </button>  
+      <button id="tabBtnCalculator" onclick="window.switchAdminTab('Calculator')" class="py-4 px-4 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap">  
+        <i data-lucide="calculator" class="w-4 h-4"></i> POS Calculator  
+      </button>  
+      <!-- Owner Only Tabs -->  
+      <button id="tabBtnUsers" onclick="window.switchAdminTab('Users')" class="hidden py-4 px-4 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap">  
+        <i data-lucide="users" class="w-4 h-4"></i> User Management (Owner)  
+      </button>  
+      <button id="tabBtnSettings" onclick="window.switchAdminTab('Settings')" class="hidden py-4 px-4 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap">  
+        <i data-lucide="settings" class="w-4 h-4"></i> Settings (Owner)  
+      </button>  
+    </div>  
+
+    <!-- Inventory Tab -->  
+    <div id="adminTabProducts" class="p-6">  
+      <div class="flex justify-between items-center mb-6">  
+        <div>  
+          <h3 class="text-lg font-bold text-white">Materials & Tiered Pricing</h3>  
+          <p class="text-xs text-slate-400">Define multi-variant materials and set 3-tier pricing per specification.</p>  
+        </div>  
+        <button onclick="window.openNewMaterialModal()" class="px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-sm flex items-center gap-2 shadow-lg transition">  
+          <i data-lucide="plus" class="w-4 h-4"></i> Add Material  
+        </button>  
+      </div>  
+        
+      <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/50">  
+        <table class="w-full text-left text-sm text-slate-300">  
+          <thead class="bg-slate-900 text-slate-400 text-xs uppercase font-bold border-b border-slate-800">  
+            <tr>  
+              <th class="p-4">Material Name</th>  
+              <th class="p-4">Category</th>  
+              <th class="p-4">Variants Configured</th>  
+              <th class="p-4 text-right">Actions</th>  
+            </tr>  
+          </thead>  
+          <tbody id="adminProductsTableBody" class="divide-y divide-slate-800/80">  
+            <!-- Populated via JS -->  
+          </tbody>  
+        </table>  
+        <div id="adminEmptyProducts" class="hidden py-8 text-center text-slate-500 text-sm">  
+          No materials in inventory. Click "Add Material" to begin.  
+        </div>  
+      </div>  
+    </div>  
+
+    <!-- Quotes Tab -->  
+    <div id="adminTabQuotes" class="p-6 hidden">  
+      <h3 class="text-lg font-bold text-white mb-6">Received Customer Quotes</h3>  
+      <div id="adminInquiriesList" class="space-y-4">  
+        <!-- Populated via JS -->  
+      </div>  
+    </div>  
+
+    <!-- Users Tab (Owner Only) -->  
+    <div id="adminTabUsers" class="p-6 hidden">  
+    <div class="mb-6">  
+       <h3 class="text-lg font-bold text-white">User Tier Assignment</h3>  
+       <p class="text-xs text-slate-400">Assign your customers to pricing tiers. Tiers dictate the price they see across the portal.</p>  
+    </div>  
+    <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/50">  
+      <table class="w-full text-left text-sm text-slate-300">  
+        <thead class="bg-slate-900 text-slate-400 text-xs uppercase font-bold border-b border-slate-800">  
+          <tr>  
+            <th class="p-4">Customer Info</th>  
+            <th class="p-4">Role</th>  
+            <th class="p-4">Joined Date</th>  
+            <th class="p-4">Pricing Tier</th>  
+          </tr>  
+        </thead>  
+        <tbody id="adminUsersTableBody" class="divide-y divide-slate-800/80">  
+          <!-- Populated via JS -->  
+        </tbody>  
+        </table>  
+      </div>  
+    </div>  
+
+    <!-- POS Calculator Tab -->  
+    <div id="adminTabCalculator" class="p-6 hidden">  
+      <div class="mb-6">  
+         <h3 class="text-lg font-bold text-white">POS / Customer Auto-Calculator</h3>  
+         <p class="text-xs text-slate-400">Quickly calculate subtotals for walk-in customers based on their specific pricing tier.</p>  
+      </div>  
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">  
+        <div class="col-span-1 lg:col-span-2 space-y-4">  
+          <div class="bg-slate-950 p-4 border border-slate-800 rounded-xl flex flex-wrap gap-4 items-end">  
+             <div class="flex-1 min-w-[140px]">  
+                <label class="block text-xs font-semibold text-slate-400 mb-1">Walk-in Tier</label>  
+                <select id="posCalcTier" onchange="window.updatePosCalcOptions()" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-amber-400 outline-none">  
+                  <option value="Base">Base (Individual)</option>  
+                  <option value="Moderate">Moderate (Contractor)</option>  
+                  <option value="Construction">Construction (Business)</option>  
+                </select>  
+             </div>  
+             <div class="flex-1 min-w-[150px]">  
+                <label class="block text-xs font-semibold text-slate-400 mb-1">Material</label>  
+                <select id="posCalcMaterial" onchange="window.updatePosCalcOptions()" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-amber-400 outline-none">  
+                  <!-- Populated via JS -->  
+                </select>  
+             </div>  
+             <div class="flex-1 min-w-[150px]">  
+                <label class="block text-xs font-semibold text-slate-400 mb-1">Spec / Unit</label>  
+                <select id="posCalcVariant" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-amber-400 outline-none">  
+                  <!-- Populated via JS -->  
+                </select>  
+             </div>  
+             <div class="w-20">  
+                <label class="block text-xs font-semibold text-slate-400 mb-1">Qty</label>  
+                <input type="number" id="posCalcQty" min="1" value="1" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-amber-400 outline-none">  
+             </div>  
+             <div>  
+                <button onclick="window.addPosCalcItem()" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg transition shadow-lg h-full">Add</button>  
+             </div>  
+          </div>  
+
+          <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/50 min-h-[250px]">  
+            <table class="w-full text-left text-sm text-slate-300">  
+              <thead class="bg-slate-900 text-slate-400 text-xs uppercase font-bold border-b border-slate-800">  
+                <tr>  
+                  <th class="p-3">Item Spec</th>  
+                  <th class="p-3 text-right">Unit Price</th>  
+                  <th class="p-3 text-right">Qty</th>  
+                  <th class="p-3 text-right">Total</th>  
+                  <th class="p-3 text-center w-12"></th>  
+                </tr>  
+              </thead>  
+              <tbody id="posCalcTableBody" class="divide-y divide-slate-800/80">  
+                 <tr><td colspan="5" class="p-8 text-center text-slate-500 font-bold">Calculator is empty.</td></tr>  
+              </tbody>  
+            </table>  
+          </div>  
+        </div>  
+
+        <div class="col-span-1">  
+          <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 sticky top-4 shadow-lg">  
+             <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-800 pb-2 flex items-center gap-2">  
+               <i data-lucide="calculator" class="w-4 h-4 text-amber-400"></i> POS Summary  
+             </h4>  
+             <div class="flex justify-between items-center mb-3 text-slate-300 text-sm">  
+                <span>Total Items:</span>  
+                <span id="posCalcTotalItems" class="font-bold text-white bg-slate-800 px-2 py-0.5 rounded">0</span>  
+             </div>  
+             <div class="flex justify-between items-center mb-6 text-slate-300 text-sm">  
+                <span>Applied Tier:</span>  
+                <span id="posCalcCurrentTier" class="font-bold text-slate-950 bg-amber-500 px-2 py-0.5 rounded text-[10px] uppercase tracking-wider">Base</span>  
+             </div>  
+             <div class="pt-4 border-t border-slate-800 flex flex-col items-end gap-1">  
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Grand Total</span>  
+                <span id="posCalcGrandTotal" class="text-3xl font-black text-amber-400 tracking-tight">₹0.00</span>  
+             </div>  
+             <button onclick="window.clearPosCalc()" class="w-full mt-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl transition text-sm flex items-center justify-center gap-2">  
+               <i data-lucide="refresh-cw" class="w-4 h-4"></i> Reset Calculator  
+             </button>  
+          </div>  
+        </div>  
+      </div>  
+    </div>  
+
+    <!-- Settings Tab (Owner Only) -->  
+    <div id="adminTabSettings" class="p-6 hidden">  
+      <div class="mb-6">  
+         <h3 class="text-lg font-bold text-white">Store Settings</h3>  
+         <p class="text-xs text-slate-400">Manage global categories used to group your inventory materials. These show on the storefront.</p>  
+      </div>  
+      <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 max-w-xl shadow-lg">  
+         <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2"><i data-lucide="tags" class="w-4 h-4 text-amber-400"></i> Active Categories</h4>  
+         <div id="adminSettingsCategories" class="space-y-2 mb-4 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">  
+           <!-- Populated via JS -->  
+         </div>  
+         <div class="flex gap-2 mt-4 pt-4 border-t border-slate-800">  
+            <input type="text" id="newCategoryInput" placeholder="Add new category (e.g., Paints)" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-amber-400 outline-none">  
+            <button onclick="window.addCategorySetting()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold rounded-lg transition shadow-md whitespace-nowrap">Add Category</button>  
+         </div>  
+         <div class="mt-6">  
+            <button onclick="window.saveStoreSettings()" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black uppercase tracking-wider rounded-xl shadow-lg transition text-sm flex items-center justify-center gap-2">  
+               <i data-lucide="save" class="w-4 h-4"></i> Save Categories Locally & Globally  
+            </button>  
+         </div>  
+      </div>  
+    </div>  
+
+  </div>  
+</div>
+
+  </div>    <div id="productEditorModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[200] hidden flex items-center justify-center p-4 overflow-y-auto">  
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden relative my-8">  
+      <div class="bg-slate-950 p-5 border-b border-slate-800 flex justify-between items-center">  
+        <div class="flex items-center gap-2">  
+          <i data-lucide="box" class="w-5 h-5 text-amber-400"></i>  
+          <h3 id="productEditorModalTitle" class="text-lg font-bold text-white">Add New Material</h3>  
+        </div>  
+        <button onclick="window.closeProductEditor()" class="text-slate-400 hover:text-white p-1 bg-slate-800 rounded">  
+          <i data-lucide="x" class="w-5 h-5"></i>  
+        </button>  
+      </div>  <form id="productEditorForm" class="p-6 space-y-5">  
+    <input type="hidden" id="editProductId" value="">  
+      
+    <div class="grid grid-cols-2 gap-4">  
+      <div class="col-span-2 sm:col-span-1">  
+        <label class="block text-sm font-semibold text-slate-300 mb-1.5">Material Name *</label>  
+        <input type="text" id="editProductName" required placeholder="E.g., Tata Tiscon TMT Bar" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-amber-400">  
+      </div>  
+      <div class="col-span-2 sm:col-span-1">  
+        <label class="block text-sm font-semibold text-slate-300 mb-1.5">Category *</label>  
+        <select id="editProductCategory" required class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-amber-400">  
+          <!-- Dynamically Populated From Settings -->  
+        </select>  
+      </div>  
+    </div>  
+
+    <div class="bg-slate-950/50 border border-slate-800 rounded-xl p-4">  
+      <div class="flex justify-between items-center mb-4">  
+        <div>  
+          <h4 class="text-sm font-bold text-white">Specifications & 3-Tier Pricing</h4>  
+          <p class="text-[10px] text-slate-400">Define specs (e.g. 8mm), purchasing units (e.g. MT), and pricing.</p>  
+        </div>  
+        <button type="button" onclick="window.addAdminVariantRow()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-400 text-xs font-bold rounded-lg border border-slate-700 transition flex items-center gap-1">  
+          <i data-lucide="plus" class="w-3 h-3"></i> Add Variant  
+        </button>  
+      </div>  
+        
+      <div id="adminVariantsContainer" class="space-y-4 max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">  
+        <!-- Variants rows injected here -->  
+      </div>  
+    </div>  
+      
+    <div class="pt-4 mt-2 border-t border-slate-800 flex justify-end gap-3">  
+      <button type="button" onclick="window.closeProductEditor()" class="px-4 py-2.5 text-slate-300 hover:text-white font-semibold text-sm">Cancel</button>  
+      <button type="submit" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl shadow-lg flex items-center gap-2 transition active:scale-95 text-sm">  
+        <i data-lucide="save" class="w-4 h-4"></i> Save Material  
+      </button>  
+    </div>  
+  </form>  
+</div>
+
+  </div>    <div id="toastContainer" class="fixed bottom-6 right-6 z-[300] flex flex-col gap-2 pointer-events-none"></div>    <script type="module">  
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";  
+    import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";  
+    import { getFirestore, doc, getDoc, setDoc, deleteDoc, updateDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";  
+  
+    // =========================================================================  
+    // 🌐 GITHUB DEPLOYMENT / LIVE LAUNCH CONFIGURATION  
+    // -------------------------------------------------------------------------  
+    // To make this app work on GitHub Pages, Netlify, GoDaddy, etc.:  
+    // 1. Go to firebase.google.com, create a free project.  
+    // 2. Click "Add Web App" (the `</>` icon).  
+    // 3. Copy the keys provided and paste them into the empty strings below.  
+    // =========================================================================  
+    const GITHUB_FIREBASE_CONFIG = {  
+      apiKey: "",  
+      authDomain: "",  
+      projectId: "",  
+      storageBucket: "",  
+      messagingSenderId: "",  
+      appId: ""  
+    };  
+  
+    // Safely handles environment preview OR standard GitHub live deployment  
+    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : GITHUB_FIREBASE_CONFIG;  
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'enterpreneur-axz-secure';  
+      
+    // Fallback if config is totally empty (prevents crashing during local testing)  
+    if (!firebaseConfig.projectId) {  
+       console.warn("Firebase is not configured! Please add your keys to GITHUB_FIREBASE_CONFIG to persist data online.");  
+    }  
+  
+    const app = initializeApp(firebaseConfig);  
+    const auth = getAuth(app);  
+    const db = getFirestore(app);  
+  
+    const getPublicCol = (name) => collection(db, 'artifacts', appId, 'public', 'data', name);  
+    const getPublicDoc = (name, docId) => doc(db, 'artifacts', appId, 'public', 'data', name, docId);  
+  
+    const state = {  
+      user: null,  
+      profile: null,   
+      materials: [],  
+      quotes: [],  
+      users: [],  
+      cart: [],  
+      activeCategory: "All Categories",  
+      customCategories: ["Cement & Concrete", "Steel & Rebar", "Bricks & Blocks", "Aggregates & Sand", "Lumber & Plywood"],  
+      posCart: []  
+    };  
+  
+    let CATEGORIES = ["All Categories", ...state.customCategories];  
+  
+    const formatINR = (amount) => {  
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 2 }).format(amount);  
+    };  
+  
+    function getVariantPrice(variant) {  
+      if (!state.profile || state.profile.role === 'owner' || state.profile.role === 'assistant') {  
+          return variant.priceBase || 0;  
+      }  
+      if (state.profile.tier === 'Construction') return variant.priceConstruction || 0;  
+      if (state.profile.tier === 'Moderate') return variant.priceModerate || 0;  
+      return variant.priceBase || 0;  
+    }  
+  
+    window.showToast = function(message, type = "success") {  
+      const container = document.getElementById('toastContainer');  
+      const toast = document.createElement('div');  
+      const bg = type === 'success' ? 'border-emerald-500 text-emerald-400' : 'border-rose-500 text-rose-400';  
+      toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border-2 shadow-2xl bg-slate-900 ${bg} text-sm font-bold transition-all duration-300 translate-y-4 opacity-0`;  
+      toast.innerHTML = `<i data-lucide="${type === 'success' ? 'check-circle' : 'alert-circle'}" class="w-5 h-5"></i><span>${message}</span>`;  
+      container.appendChild(toast);  
+      lucide.createIcons({ root: toast });  
+      requestAnimationFrame(() => toast.classList.remove('translate-y-4', 'opacity-0'));  
+      setTimeout(() => { toast.classList.add('opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);  
+    };  
+  
+    onAuthStateChanged(auth, async (user) => {  
+      if (user) {  
+        state.user = user;  
+        try {  
+          const profileSnap = await getDoc(getPublicDoc('profiles', user.uid));  
+          if (profileSnap.exists()) {  
+            state.profile = profileSnap.data();  
+            launchApp();  
+          } else {  
+            showAuthScreen();  
+          }  
+        } catch (e) {  
+          console.error("Auth Fetch Error (likely offline):", e);  
+          showAuthScreen();  
+        }  
+      } else {  
+        showAuthScreen();  
+      }  
+    });  
+  
+    const token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;  
+    if (token) {  
+      signInWithCustomToken(auth, token).catch(e => console.error("Token err:", e));  
+    } else {  
+      signInAnonymously(auth).catch(e => console.error("Anon err:", e));  
+    }  
+  
+    function showAuthScreen() {  
+      document.getElementById('authLoadingState').classList.add('hidden');  
+      document.getElementById('profileSetupForm').classList.remove('hidden');  
+      document.getElementById('bodyWrapper').classList.add('overflow-hidden');  
+    }  
+  
+    // Dynamic Form UI Based on Email Input  
+    const emailInput = document.getElementById('authEmailInput');  
+    const pinSection = document.getElementById('pinSection');  
+    const customerSection = document.getElementById('customerSection');  
+    const submitBtnText = document.getElementById('submitBtnText');  
+  
+    emailInput.addEventListener('input', (e) => {  
+        const val = e.target.value.toLowerCase().trim();  
+        if (val === 'rahul.rch.97@gmail.com' || val === 'assistant@axz.com') {  
+            pinSection.classList.remove('hidden');  
+            customerSection.classList.add('hidden');  
+            submitBtnText.textContent = "Secure Login";  
+        } else if (val.includes('@') && val.includes('.')) {  
+            pinSection.classList.add('hidden');  
+            customerSection.classList.remove('hidden');  
+            submitBtnText.textContent = "Continue";  
+        } else {  
+            pinSection.classList.add('hidden');  
+            customerSection.classList.add('hidden');  
+            submitBtnText.textContent = "Continue";  
+        }  
+    });  
+  
+    document.getElementById('profileSetupForm').addEventListener('submit', async (e) => {  
+      e.preventDefault();  
+      if (!state.user) return;  
+        
+      const email = emailInput.value.trim().toLowerCase();  
+      let role = 'customer';  
+      let tier = 'Base';  
+      let name = '';  
+  
+      // Secure PIN Verification  
+      if (email === 'rahul.rch.97@gmail.com') {  
+          const pin = document.getElementById('authPinInput').value;  
+          if (pin !== '9797') return window.showToast("Invalid Owner PIN. Access Denied.", "error");  
+          role = 'owner';  
+          name = 'Rahul (Owner)';  
+      }   
+      else if (email === 'assistant@axz.com') {  
+          const pin = document.getElementById('authPinInput').value;  
+          if (pin !== '1234') return window.showToast("Invalid Assistant PIN. Access Denied.", "error");  
+          role = 'assistant';  
+          name = 'Store Assistant';  
+      }   
+      else {  
+          name = document.getElementById('authNameInput').value.trim();  
+          tier = document.getElementById('authTierInput').value;  
+          if (!name) return window.showToast("Full Name / Company is required", "error");  
+      }  
+        
+      document.getElementById('profileSetupForm').classList.add('hidden');  
+      document.getElementById('authLoadingState').classList.remove('hidden');  
+  
+      const profile = {   
+        name,  
+        email,  
+        role,   
+        tier: role === 'customer' ? tier : null,   
+        createdAt: new Date().toISOString()   
+      };  
+  
+      try {  
+        await setDoc(getPublicDoc('profiles', state.user.uid), profile);  
+        state.profile = profile;  
+        launchApp();  
+        window.showToast(`Logged in as ${role.toUpperCase()}`);  
+      } catch (err) {  
+        window.showToast("Failed to connect to database.", "error");  
+        showAuthScreen();  
+      }  
+    });  
+  
+    function launchApp() {  
+      document.getElementById('authOverlay').classList.add('hidden');  
+      document.getElementById('bodyWrapper').classList.remove('overflow-hidden');  
+      const appContent = document.getElementById('mainAppContent');  
+      appContent.classList.remove('hidden');  
+      appContent.classList.add('flex');  
+      setTimeout(() => appContent.classList.remove('opacity-0'), 50);  
+  
+      document.getElementById('currentUserDisplay').textContent = state.profile.name;  
+        
+      // Update UI Permissions based on role  
+      const roleText = state.profile.role === 'owner' ? '(Owner)' : state.profile.role === 'assistant' ? '(Assistant)' : `(${state.profile.tier} Customer)`;  
+      document.getElementById('currentUserRole').textContent = roleText;  
+  
+      const isAdminUser = state.profile.role === 'owner' || state.profile.role === 'assistant';  
+  
+      if (isAdminUser) {  
+        document.getElementById('openAdminSuiteBtn').classList.remove('hidden');  
+        document.getElementById('openQuoteDrawerBtn').classList.add('hidden');  
+        document.getElementById('openEstimatorBtn').classList.add('hidden');  
+          
+        // Setup Owner vs Assistant Tabs  
+        if(state.profile.role === 'owner') {  
+            document.getElementById('tabBtnUsers').classList.remove('hidden');  
+            document.getElementById('tabBtnSettings').classList.remove('hidden');  
+        } else {  
+            document.getElementById('tabBtnUsers').classList.add('hidden');  
+            document.getElementById('tabBtnSettings').classList.add('hidden');  
+        }  
+      } else {  
+        document.getElementById('openAdminSuiteBtn').classList.add('hidden');  
+        document.getElementById('openQuoteDrawerBtn').classList.remove('hidden');  
+        document.getElementById('openEstimatorBtn').classList.remove('hidden');  
+        document.getElementById('quoteDeliveryDate').min = new Date().toISOString().split('T')[0];  
+      }  
+  
+      renderCategoryPills();  
+      setupRealtimeListeners();  
+    }  
+  
+    function setupRealtimeListeners() {  
+      if (!state.user) return;  
+  
+      // Listen to Global Categories Settings  
+      onSnapshot(getPublicDoc('settings', 'general'), (snapshot) => {  
+        if (snapshot.exists() && snapshot.data().categories) {  
+          state.customCategories = snapshot.data().categories;  
+        }  
+        CATEGORIES = ["All Categories", ...state.customCategories];  
+        renderCategoryPills();  
+        if (state.profile && state.profile.role === 'owner') {  
+          renderSettingsCategories();  
+          updateProductEditorCategories();  
+        }  
+      });  
+  
+      // Listen to Materials  
+      onSnapshot(getPublicCol('materials'), (snapshot) => {  
+        document.getElementById('catalogLoadingState').classList.add('hidden');  
+        document.getElementById('materialsGrid').classList.remove('hidden');  
+          
+        state.materials = snapshot.docs.map(doc => {  
+            const data = doc.data();  
+            // Default mappings if variants missing (migration safety)  
+            if(!data.variants) {  
+                data.variants = [{ spec: 'Standard', unit: data.unit || 'Unit', priceBase: data.price || 0, priceModerate: data.price || 0, priceConstruction: data.price || 0, stock: data.stock || 0 }];  
+            }  
+            return { id: doc.id, ...data };  
+        });  
+          
+        renderCatalog();  
+        if (state.profile.role === 'owner' || state.profile.role === 'assistant') {  
+          renderAdminProductsTable();  
+          window.updatePosCalcOptions();  
+        }  
+      }, err => console.error(err));  
+  
+      // Listen to Quotes  
+      onSnapshot(getPublicCol('quotes'), (snapshot) => {  
+        state.quotes = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));  
+        if (state.profile.role === 'owner' || state.profile.role === 'assistant') {  
+          state.quotes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));  
+          renderAdminQuotes();  
+        }  
+      }, err => console.error(err));  
+  
+      // Listen to Users (Owner Only)  
+      if (state.profile.role === 'owner') {  
+        onSnapshot(getPublicCol('profiles'), (snapshot) => {  
+          state.users = snapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }));  
+          renderAdminUsers();  
+        }, err => console.error(err));  
+      }  
+    }  
+  
+    function renderCategoryPills() {  
+      document.getElementById('categoryFilterBar').innerHTML = CATEGORIES.map(cat => {  
+        const isActive = state.activeCategory === cat;  
+        return `<button onclick="window.setCategory('${cat}')"   
+            class="whitespace-nowrap px-4 py-2 rounded-xl font-bold transition-all border ${isActive ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md' : 'bg-slate-950 text-slate-300 border-slate-700 hover:bg-slate-800'}">  
+            ${cat}  
+          </button>`;  
+      }).join('');  
+    }  
+    window.setCategory = function(cat) { state.activeCategory = cat; renderCategoryPills(); renderCatalog(); };  
+  
+    function renderCatalog() {  
+      const grid = document.getElementById('materialsGrid');  
+      const filtered = state.materials.filter(m => state.activeCategory === "All Categories" || m.category === state.activeCategory);  
+  
+      if (filtered.length === 0) {  
+        grid.innerHTML = `<div class="col-span-full py-16 text-center bg-slate-900 border border-slate-800 rounded-2xl"><p class="text-slate-400 font-bold">No materials found in this category.</p></div>`;  
+        return;  
+      }  
+  
+      grid.innerHTML = filtered.map(item => {  
+        const variants = item.variants;  
+        if(variants.length === 0) return '';  
+          
+        const isCustomer = state.profile.role === 'customer';  
+        const vFirst = variants[0];  
+        const displayPrice = getVariantPrice(vFirst);  
+          
+        let variantSelectorHtml = '';  
+        if (variants.length > 1) {  
+            variantSelectorHtml = `  
+              <select id="var-sel-${item.id}" onchange="window.updateVariantDisplay('${item.id}')" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-xs font-bold text-white focus:border-amber-400 mb-4 cursor-pointer outline-none">  
+                ${variants.map((v, idx) => `<option value="${idx}">${v.spec} - ${v.unit}</option>`).join('')}  
+              </select>  
+            `;  
+        } else {  
+            variantSelectorHtml = `<div class="text-xs font-bold text-slate-400 bg-slate-950 border border-slate-800 p-2 rounded-lg mb-4 text-center select-none" id="var-sel-${item.id}" data-value="0">${vFirst.spec} - ${vFirst.unit}</div>`;  
+        }  
+  
+        const initialStock = Number(vFirst.stock);  
+        const inStock = initialStock > 0;  
+  
+        return `  
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-amber-500/30 transition flex flex-col justify-between group shadow-lg">  
+            <div>  
+              <div class="flex justify-between items-start mb-2">  
+                <span class="text-[10px] font-black text-amber-500 uppercase tracking-wider">${item.category}</span>  
+                <span id="badge-${item.id}" class="${inStock ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border-rose-500/20'} border px-2 py-0.5 rounded text-[10px] font-bold">  
+                  ${inStock ? `In Stock (${initialStock})` : 'Out of Stock'}  
+                </span>  
+              </div>  
+              <h3 class="text-lg font-bold text-white leading-snug mb-4 group-hover:text-amber-400 transition-colors">${item.name}</h3>  
+            </div>  
+              
+            <div class="pt-4 border-t border-slate-800 flex flex-col">  
+              ${variantSelectorHtml}  
+              <div class="flex flex-col gap-1 mb-4 h-[42px] justify-end">  
+                <div class="flex items-end gap-2">  
+                  <span id="price-${item.id}" class="text-2xl font-black text-white">${formatINR(displayPrice)}</span>  
+                  <span id="unit-${item.id}" class="text-sm text-slate-400 font-semibold mb-1">/ ${vFirst.unit}</span>  
+                </div>  
+                ${!isCustomer ? '<span class="text-[10px] text-slate-500 uppercase font-bold">Showing Retail Base (Admin)</span>' : ''}  
+              </div>  
+                
+              ${isCustomer ? `  
+                <div class="flex gap-2">  
+                  <input type="number" id="qty-${item.id}" min="1" max="${initialStock}" value="1" ${!inStock ? 'disabled' : ''} class="w-16 bg-slate-950 border border-slate-700 rounded-xl text-center text-sm font-bold text-white focus:border-amber-400 disabled:opacity-50">  
+                  <button id="add-btn-${item.id}" onclick="window.addToCart('${item.id}')" ${!inStock ? 'disabled' : ''} class="flex-1 py-2 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2 ${inStock ? 'bg-amber-500 hover:bg-amber-400 text-slate-950' : 'bg-slate-800 text-slate-500 cursor-not-allowed'}">  
+                    <i data-lucide="plus" class="w-4 h-4"></i> Add  
+                  </button>  
+                </div>  
+              ` : `<div class="py-2 text-center text-xs font-bold text-slate-500 bg-slate-950 rounded-xl border border-slate-800">Manage via Dashboard</div>`}  
+            </div>  
+          </div>  
+        `;  
+      }).join('');  
+      lucide.createIcons({ root: grid });  
+    }  
+  
+    window.updateVariantDisplay = function(matId) {  
+        const mat = state.materials.find(m => m.id === matId);  
+        const sel = document.getElementById(`var-sel-${matId}`);  
+        const vIdx = sel.value;  
+        const variant = mat.variants[vIdx];  
+          
+        const displayPrice = getVariantPrice(variant);  
+        document.getElementById(`price-${matId}`).innerText = formatINR(displayPrice);  
+        document.getElementById(`unit-${matId}`).innerText = `/ ${variant.unit}`;  
+          
+        const badge = document.getElementById(`badge-${matId}`);  
+        const qtyInput = document.getElementById(`qty-${matId}`);  
+        const addBtn = document.getElementById(`add-btn-${matId}`);  
+        const stock = Number(variant.stock);  
+        const inStock = stock > 0;  
+          
+        if (inStock) {  
+            badge.className = "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold";  
+            badge.innerText = `In Stock (${stock})`;  
+            if (qtyInput) {  
+                qtyInput.max = stock;  
+                qtyInput.disabled = false;  
+                qtyInput.value = 1;  
+            }  
+            if (addBtn) {  
+                addBtn.disabled = false;  
+                addBtn.className = "flex-1 py-2 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950";  
+            }  
+        } else {  
+            badge.className = "bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded text-[10px] font-bold";  
+            badge.innerText = `Out of Stock`;  
+            if (qtyInput) {  
+                qtyInput.max = 0;  
+                qtyInput.disabled = true;  
+                qtyInput.value = 1;  
+            }  
+            if (addBtn) {  
+                addBtn.disabled = true;  
+                addBtn.className = "flex-1 py-2 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2 bg-slate-800 text-slate-500 cursor-not-allowed";  
+            }  
+        }  
+    };  
+  
+    window.addToCart = function(id) {  
+      if (state.profile.role !== 'customer') return;  
+      const mat = state.materials.find(m => m.id === id);  
+      if (!mat) return;  
+        
+      const selElement = document.getElementById(`var-sel-${id}`);  
+      const vIdx = selElement.value !== undefined ? selElement.value : selElement.dataset.value;  
+      const variant = mat.variants[vIdx];  
+        
+      const qty = parseInt(document.getElementById(`qty-${id}`).value) || 1;  
+      const available = Number(variant.stock);  
+        
+      if (qty > available) {  
+        return window.showToast(`Only ${available} available in stock.`, "error");  
+      }  
+  
+      const unitPrice = getVariantPrice(variant);  
+      const existing = state.cart.find(c => c.id === id && c.variantIdx === vIdx);  
+  
+      if (existing) {  
+        const newQty = existing.quantity + qty;  
+        if(newQty > available) {  
+           window.showToast(`Cannot exceed stock limit (${available}).`, "error");  
+        } else {  
+           existing.quantity = newQty;  
+           window.showToast(`Updated quantity in quote`);  
+        }  
+      } else {  
+        state.cart.push({  
+            id: mat.id, name: mat.name, variantIdx: vIdx,  
+            spec: variant.spec, unit: variant.unit,  
+            price: unitPrice, quantity: qty  
+        });  
+        window.showToast("Added to quote cart");  
+      }  
+        
+      updateCartBadge();  
+      if(!document.getElementById('quoteDrawerOverlay').classList.contains('hidden')) renderCartDrawer();  
+    };  
+  
+    function updateCartBadge() {  
+      const badge = document.getElementById('cartCountBadge');  
+      badge.textContent = state.cart.reduce((sum, item) => sum + item.quantity, 0);  
+      if(state.cart.length > 0) { badge.classList.add('animate-bounce'); setTimeout(() => badge.classList.remove('animate-bounce'), 1000); }  
+    }  
+  
+    window.openQuoteDrawer = function() { document.getElementById('quoteDrawerOverlay').classList.remove('hidden'); renderCartDrawer(); };  
+    window.closeQuoteDrawer = function() { document.getElementById('quoteDrawerOverlay').classList.add('hidden'); };  
+  
+    function renderCartDrawer() {  
+      const container = document.getElementById('quoteCartItemsContainer');  
+      let total = 0;  
+  
+      if (state.cart.length === 0) {  
+        container.innerHTML = "";  
+        document.getElementById('quoteEmptyNotice').classList.remove('hidden');  
+        document.getElementById('quoteFormSection').classList.add('hidden');  
+        document.getElementById('submitQuoteBtn').disabled = true;  
+      } else {  
+        document.getElementById('quoteEmptyNotice').classList.add('hidden');  
+        document.getElementById('quoteFormSection').classList.remove('hidden');  
+        document.getElementById('submitQuoteBtn').disabled = false;  
+          
+        container.innerHTML = state.cart.map((item, idx) => {  
+          const itemTotal = Number(item.price) * item.quantity;  
+          total += itemTotal;  
+          return `  
+            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 flex justify-between items-center group">  
+              <div>  
+                <h5 class="text-sm font-bold text-white">${item.name}</h5>  
+                <p class="text-[10px] text-amber-400 font-bold uppercase mb-0.5">${item.spec}</p>  
+                <div class="text-xs text-slate-400">  
+                  ${item.quantity} ${item.unit} x ${formatINR(item.price)} = <span class="text-white font-bold">${formatINR(itemTotal)}</span>  
+                </div>  
+              </div>  
+              <button onclick="window.removeFromCart(${idx})" class="p-2 text-rose-500 hover:bg-rose-500/10 rounded-lg transition">  
+                <i data-lucide="trash-2" class="w-4 h-4"></i>  
+              </button>  
+            </div>  
+          `;  
+        }).join('');  
+      }  
+  
+      document.getElementById('quoteCartSubtotal').textContent = formatINR(total);  
+      lucide.createIcons({ root: container });  
+    }  
+  
+    window.removeFromCart = function(idx) { state.cart.splice(idx, 1); updateCartBadge(); renderCartDrawer(); };  
+  
+    document.getElementById('submitQuoteBtn').addEventListener('click', async () => {  
+      if (!state.user || state.cart.length === 0) return;  
+      const address = document.getElementById('quoteDeliveryAddress').value.trim();  
+      const date = document.getElementById('quoteDeliveryDate').value;  
+        
+      if (!address || !date) return window.showToast("Please provide delivery address and date.", "error");  
+  
+      const total = state.cart.reduce((sum, item) => sum + (Number(item.price) * item.quantity), 0);  
+      const quoteId = `Q-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;  
+        
+      const payload = {  
+        customerName: state.profile.name, customerId: state.user.uid,  
+        customerTier: state.profile.tier,  
+        address, date, total, status: 'Pending',  
+        createdAt: new Date().toISOString(),  
+        items: state.cart  
+      };  
+  
+      try {  
+        const btn = document.getElementById('submitQuoteBtn');  
+        const ogText = btn.innerHTML;  
+        btn.innerHTML = `<div class="loader w-4 h-4 mr-2"></div> Submitting...`;  
+        btn.disabled = true;  
+  
+        await setDoc(getPublicDoc('quotes', quoteId), payload);  
+          
+        state.cart = []; updateCartBadge(); window.closeQuoteDrawer();  
+        window.showToast("Quote submitted successfully!");  
+          
+        btn.innerHTML = ogText; btn.disabled = false;  
+        document.getElementById('quoteDeliveryAddress').value = ""; document.getElementById('quoteDeliveryDate').value = "";  
+      } catch (err) { window.showToast("Failed to submit quote", "error"); }  
+    });  
+  
+    // Estimator Methods  
+    window.openEstimator = function() { document.getElementById('estimatorModal').classList.remove('hidden'); };  
+    window.closeEstimator = function() { document.getElementById('estimatorModal').classList.add('hidden'); };  
+    window.calculateEstimate = function() {  
+      const l = parseFloat(document.getElementById('estLength').value) || 0;  
+      const w = parseFloat(document.getElementById('estWidth').value) || 0;  
+      const d = parseFloat(document.getElementById('estDepth').value) || 0;  
+        
+      const wetVol = l * w * d; const dryVol = wetVol * 1.54; const sumRatio = 1 + 1.5 + 3;  
+      document.getElementById('resCement').textContent = Math.ceil((dryVol * (1/sumRatio)) * 1440 / 50);  
+      document.getElementById('resSand').textContent = ((dryVol * (1.5/sumRatio)) * 1600 / 1000).toFixed(2);  
+      document.getElementById('resAgg').textContent = ((dryVol * (3/sumRatio)) * 1450 / 1000).toFixed(2);  
+      document.getElementById('estimatorResults').classList.remove('hidden');  
+    };  
+  
+    window.openAdminModal = function() {  
+      if (state.profile.role !== 'owner' && state.profile.role !== 'assistant') return;  
+      document.getElementById('adminSuiteModal').classList.remove('hidden');  
+    };  
+    window.closeAdminModal = function() { document.getElementById('adminSuiteModal').classList.add('hidden'); };  
+  
+    window.switchAdminTab = function(tabName) {  
+      if(state.profile.role === 'assistant' && (tabName === 'Users' || tabName === 'Settings')) {  
+          return window.showToast("Access Denied. Owner level required.", "error");  
+      }  
+      const tabs = ['Products', 'Quotes', 'Users', 'Calculator', 'Settings'];  
+      tabs.forEach(t => {  
+        const btn = document.getElementById(`tabBtn${t}`);  
+        const content = document.getElementById(`adminTab${t}`);  
+        if (!btn || !content) return;  
+        if (t === tabName) {  
+          btn.classList.add('border-amber-500', 'text-amber-400');  
+          btn.classList.remove('border-transparent', 'text-slate-400');  
+          content.classList.remove('hidden');  
+          if (t === 'Calculator') window.updatePosCalcOptions();  
+        } else {  
+          btn.classList.remove('border-amber-500', 'text-amber-400');  
+          btn.classList.add('border-transparent', 'text-slate-400');  
+          content.classList.add('hidden');  
+        }  
+      });  
+    };  
+  
+    function renderAdminProductsTable() {  
+      const tbody = document.getElementById('adminProductsTableBody');  
+      const emptyState = document.getElementById('adminEmptyProducts');  
+        
+      if (state.materials.length === 0) {  
+        tbody.innerHTML = "";  
+        emptyState.classList.remove('hidden');  
+        return;  
+      }  
+        
+      emptyState.classList.add('hidden');  
+      tbody.innerHTML = state.materials.map(m => `  
+        <tr class="hover:bg-slate-950 transition border-b border-slate-800/50 last:border-0">  
+          <td class="p-4 font-bold text-white">${m.name}</td>  
+          <td class="p-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">${m.category}</td>  
+          <td class="p-4">  
+             <div class="flex flex-col gap-2">  
+               ${m.variants.map(v => `  
+                 <div class="bg-slate-900 border border-slate-700 p-2 rounded-lg text-xs">  
+                    <div class="flex justify-between items-center mb-1">  
+                        <strong class="text-white">${v.spec} (${v.unit})</strong>  
+                        <span class="${v.stock > 0 ? 'text-emerald-400' : 'text-rose-400'} font-bold">Stock: ${v.stock}</span>  
+                    </div>  
+                    <div class="flex gap-3 text-[10px] text-slate-400">  
+                        <span>Base: <b class="text-slate-200">${formatINR(v.priceBase)}</b></span>  
+                        <span>Mod: <b class="text-slate-200">${formatINR(v.priceModerate)}</b></span>  
+                        <span>Const: <b class="text-slate-200">${formatINR(v.priceConstruction)}</b></span>  
+                    </div>  
+                 </div>  
+               `).join('')}  
+             </div>  
+          </td>  
+          <td class="p-4 text-right align-top">  
+            <button onclick="window.editMaterial('${m.id}')" class="p-1.5 text-blue-400 hover:bg-blue-400/10 rounded mr-2 transition" title="Edit">  
+              <i data-lucide="edit-2" class="w-4 h-4"></i>  
+            </button>  
+            <button onclick="window.deleteMaterial('${m.id}')" class="p-1.5 text-rose-400 hover:bg-rose-400/10 rounded transition" title="Delete">  
+              <i data-lucide="trash-2" class="w-4 h-4"></i>  
+            </button>  
+          </td>  
+        </tr>  
+      `).join('');  
+      lucide.createIcons({ root: tbody });  
+    }  
+  
+    window.openNewMaterialModal = function() {  
+      document.getElementById('productEditorModalTitle').textContent = "Add New Material";  
+      document.getElementById('productEditorForm').reset();  
+      document.getElementById('editProductId').value = "";   
+      document.getElementById('adminVariantsContainer').innerHTML = "";  
+      window.addAdminVariantRow();   
+      updateProductEditorCategories();  
+      document.getElementById('productEditorModal').classList.remove('hidden');  
+    };  
+      
+    window.closeProductEditor = function() { document.getElementById('productEditorModal').classList.add('hidden'); };  
+  
+    window.addAdminVariantRow = function(v = {spec: '', unit: '', priceBase: '', priceModerate: '', priceConstruction: '', stock: ''}) {  
+      const container = document.getElementById('adminVariantsContainer');  
+      const row = document.createElement('div');  
+      row.className = 'admin-variant-row bg-slate-900 p-3 rounded-xl border border-slate-700 relative flex gap-3 items-start shadow-sm';  
+        
+      row.innerHTML = `  
+        <div class="flex-1 space-y-3">  
+          <div class="grid grid-cols-3 gap-3">  
+            <div>  
+              <label class="block text-[10px] text-slate-400 mb-1 uppercase font-bold">Spec (e.g. 8mm)</label>  
+              <input type="text" class="v-spec w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-xs text-white focus:border-amber-400" value="${v.spec}" required>  
+            </div>  
+            <div>  
+              <label class="block text-[10px] text-slate-400 mb-1 uppercase font-bold">Unit (e.g. PC / MT)</label>  
+              <input type="text" class="v-unit w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-xs text-white focus:border-amber-400" value="${v.unit}" required>  
+            </div>  
+            <div>  
+              <label class="block text-[10px] text-slate-400 mb-1 uppercase font-bold">Stock Qty</label>  
+              <input type="number" step="1" min="0" class="v-stock w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-xs text-white focus:border-amber-400" value="${v.stock}" required>  
+            </div>  
+          </div>  
+          <div class="grid grid-cols-3 gap-3 pt-3 border-t border-slate-800">  
+            <div>  
+              <label class="block text-[10px] text-emerald-400 mb-1 uppercase font-bold">Base Price (₹)</label>  
+              <input type="number" step="0.01" min="0" class="v-price-base w-full bg-slate-950 border border-emerald-500/30 rounded-lg p-2 text-xs text-white focus:border-emerald-400" value="${v.priceBase}" placeholder="Retail" required>  
+            </div>  
+            <div>  
+              <label class="block text-[10px] text-blue-400 mb-1 uppercase font-bold">Moderate Price (₹)</label>  
+              <input type="number" step="0.01" min="0" class="v-price-mod w-full bg-slate-950 border border-blue-500/30 rounded-lg p-2 text-xs text-white focus:border-blue-400" value="${v.priceModerate}" placeholder="Contractor" required>  
+            </div>  
+            <div>  
+              <label class="block text-[10px] text-purple-400 mb-1 uppercase font-bold">Const. Price (₹)</label>  
+              <input type="number" step="0.01" min="0" class="v-price-const w-full bg-slate-950 border border-purple-500/30 rounded-lg p-2 text-xs text-white focus:border-purple-400" value="${v.priceConstruction}" placeholder="Bulk / Mass" required>  
+            </div>  
+          </div>  
+        </div>  
+        <button type="button" onclick="this.parentElement.remove()" class="p-2 bg-rose-500/10 text-rose-500 hover:bg-rose-500 hover:text-white rounded-lg mt-5 shrink-0 transition" title="Remove Variant">  
+          <i data-lucide="trash-2" class="w-4 h-4"></i>  
+        </button>  
+      `;  
+      container.appendChild(row); lucide.createIcons({ root: row });  
+    };  
+  
+    window.editMaterial = function(id) {  
+      const mat = state.materials.find(m => m.id === id);  
+      if (!mat) return;  
+      document.getElementById('productEditorModalTitle').textContent = "Edit Material";  
+      document.getElementById('editProductId').value = mat.id;  
+      document.getElementById('editProductName').value = mat.name;  
+      updateProductEditorCategories();  
+      document.getElementById('editProductCategory').value = mat.category;  
+      document.getElementById('adminVariantsContainer').innerHTML = "";  
+      mat.variants.forEach(v => window.addAdminVariantRow(v));  
+      document.getElementById('productEditorModal').classList.remove('hidden');  
+    };  
+  
+    document.getElementById('productEditorForm').addEventListener('submit', async (e) => {  
+      e.preventDefault();  
+      if (!state.user || (state.profile.role !== 'owner' && state.profile.role !== 'assistant')) return;  
+  
+      const rows = document.querySelectorAll('.admin-variant-row');  
+      if(rows.length === 0) return window.showToast("Please add at least one variant.", "error");  
+  
+      const variants = Array.from(rows).map(row => ({  
+          spec: row.querySelector('.v-spec').value.trim(),  
+          unit: row.querySelector('.v-unit').value.trim(),  
+          priceBase: parseFloat(row.querySelector('.v-price-base').value) || 0,  
+          priceModerate: parseFloat(row.querySelector('.v-price-mod').value) || 0,  
+          priceConstruction: parseFloat(row.querySelector('.v-price-const').value) || 0,  
+          stock: parseInt(row.querySelector('.v-stock').value) || 0  
+      }));  
+  
+      const formId = document.getElementById('editProductId').value;  
+      const isNew = !formId; const docId = isNew ? `mat-${Date.now()}` : formId;  
+  
+      const payload = {  
+        name: document.getElementById('editProductName').value.trim(),  
+        category: document.getElementById('editProductCategory').value,  
+        variants: variants, updatedAt: new Date().toISOString()  
+      };  
+  
+      try {  
+        await setDoc(getPublicDoc('materials', docId), payload);  
+        window.closeProductEditor();  
+        window.showToast(`Material ${isNew ? 'added' : 'updated'} successfully!`);  
+      } catch (err) { window.showToast("Failed to save material.", "error"); }  
+    });  
+  
+    window.deleteMaterial = async function(id) {  
+      if (!state.user || (state.profile.role !== 'owner' && state.profile.role !== 'assistant')) return;  
+      try { await deleteDoc(getPublicDoc('materials', id)); window.showToast("Material deleted"); }   
+      catch (err) { window.showToast("Failed to delete", "error"); }  
+    };  
+  
+    function renderAdminQuotes() {  
+      const container = document.getElementById('adminInquiriesList');  
+      if (state.quotes.length === 0) {  
+        container.innerHTML = `<div class="p-8 text-center border border-dashed border-slate-700 rounded-xl text-slate-500 font-bold">No quotes received yet.</div>`;  
+        return;  
+      }  
+  
+      container.innerHTML = state.quotes.map(q => {  
+        const d = new Date(q.createdAt).toLocaleDateString();  
+        const statusColors = { 'Pending': 'bg-amber-500/20 text-amber-400 border-amber-500/30', 'Approved': 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30', 'Rejected': 'bg-rose-500/20 text-rose-400 border-rose-500/30' };  
+        const badgeClass = statusColors[q.status] || statusColors['Pending'];  
+  
+        return `  
+          <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 shadow-lg">  
+            <div class="flex justify-between items-start border-b border-slate-800 pb-3 mb-3">  
+              <div>  
+                <div class="flex items-center gap-2 mb-1">  
+                  <span class="text-xs font-mono font-bold text-slate-500">${q.id}</span>  
+                  <span class="text-[10px] uppercase font-bold border px-2 py-0.5 rounded ${badgeClass}">${q.status}</span>  
+                </div>  
+                <h4 class="text-base font-black text-white flex items-center gap-2">  
+                   ${q.customerName}  
+                   <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-amber-400 border border-amber-500/20 uppercase font-bold">${q.customerTier || 'Base'} Tier</span>  
+                </h4>  
+              </div>  
+              <div class="text-right">  
+                <span class="block text-xl font-black text-amber-400">${formatINR(q.total)}</span>  
+                <span class="text-xs text-slate-500">Submitted: ${d}</span>  
+              </div>  
+            </div>  
+              
+            <div class="grid grid-cols-2 gap-4 text-sm mb-4">  
+              <div><strong class="text-slate-400 block text-xs">Target Date</strong> <span class="text-white">${q.date}</span></div>  
+              <div><strong class="text-slate-400 block text-xs">Delivery Address</strong> <span class="text-white truncate block">${q.address}</span></div>  
+            </div>  
+              
+            <div class="bg-slate-900 rounded-lg p-3 border border-slate-800 text-sm mb-4">  
+              <strong class="text-slate-400 text-xs uppercase block mb-2">Requested Items (Billed at ${q.customerTier || 'Base'} Price)</strong>  
+              <div class="space-y-1">  
+                ${q.items.map(i => `  
+                  <div class="flex justify-between text-slate-300">  
+                    <span>${i.quantity}x ${i.name} <span class="text-[10px] text-amber-500 ml-1">(${i.spec} / ${i.unit})</span></span>  
+                    <span class="font-mono">${formatINR(Number(i.price) * i.quantity)}</span>  
+                  </div>  
+                `).join('')}  
+              </div>  
+            </div>  
+              
+            <div class="flex gap-2 justify-end">  
+              <button onclick="window.updateQuoteStatus('${q.id}', 'Approved')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition">Approve</button>  
+              <button onclick="window.updateQuoteStatus('${q.id}', 'Rejected')" class="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold rounded-lg transition">Reject</button>  
+            </div>  
+          </div>  
+        `;  
+      }).join('');  
+    }  
+  
+    window.updateQuoteStatus = async function(id, status) {  
+      if (!state.user || (state.profile.role !== 'owner' && state.profile.role !== 'assistant')) return;  
+      try { await updateDoc(getPublicDoc('quotes', id), { status }); window.showToast(`Quote marked as ${status}`); }   
+      catch (e) { window.showToast("Failed to update status", "error"); }  
+    };  
+  
+    function renderAdminUsers() {  
+      const tbody = document.getElementById('adminUsersTableBody');  
+      const customers = state.users.filter(u => u.role === 'customer');  
+      if (customers.length === 0) {  
+        tbody.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-500 font-bold">No customers registered yet.</td></tr>`;  
+        return;  
+      }  
+      tbody.innerHTML = customers.map(c => {  
+        const d = new Date(c.createdAt).toLocaleDateString();  
+        const t = c.tier || 'Base';  
+        const emailDisp = c.email ? `<div class="text-[10px] text-slate-500 font-normal mt-0.5">${c.email}</div>` : '';  
+        return `  
+          <tr class="hover:bg-slate-950 transition border-b border-slate-800/50">  
+            <td class="p-4"><div class="font-bold text-white">${c.name}</div>${emailDisp}</td>  
+            <td class="p-4 text-xs font-semibold text-slate-400 capitalize">${c.role}</td>  
+            <td class="p-4 text-xs text-slate-400">${d}</td>  
+            <td class="p-4">  
+               <select onchange="window.updateUserTier('${c.uid}', this.value)" class="bg-slate-900 border border-amber-500/50 rounded-lg p-2 text-xs font-bold text-amber-400 focus:outline-none focus:border-amber-400 cursor-pointer">  
+                  <option value="Base" ${t === 'Base' ? 'selected' : ''}>Base (Individual)</option>  
+                  <option value="Moderate" ${t === 'Moderate' ? 'selected' : ''}>Moderate (Contractor)</option>  
+                  <option value="Construction" ${t === 'Construction' ? 'selected' : ''}>Construction (Business)</option>  
+               </select>  
+            </td>  
+          </tr>  
+        `;  
+      }).join('');  
+    }  
+  
+    window.updateUserTier = async function(uid, newTier) {  
+      if (!state.user || state.profile.role !== 'owner') return;  
+      try {  
+        await updateDoc(getPublicDoc('profiles', uid), { tier: newTier });  
+        window.showToast("User tier updated successfully.");  
+      } catch (e) { window.showToast("Failed to update tier", "error"); }  
+    };  
+  
+    function renderSettingsCategories() {  
+      const container = document.getElementById('adminSettingsCategories');  
+      if(!container) return;  
+      container.innerHTML = state.customCategories.map((cat, idx) => `  
+        <div class="flex justify-between items-center bg-slate-900 border border-slate-700 p-3 rounded-lg group">  
+           <span class="text-sm font-bold text-slate-200">${cat}</span>  
+           <button onclick="window.removeCategorySetting(${idx})" class="text-rose-500 hover:bg-rose-500/10 p-1.5 rounded opacity-0 group-hover:opacity-100 transition" title="Remove">  
+              <i data-lucide="trash-2" class="w-4 h-4"></i>  
+           </button>  
+        </div>  
+      `).join('');  
+      lucide.createIcons({ root: container });  
+    }  
+  
+    window.addCategorySetting = function() {  
+      const input = document.getElementById('newCategoryInput'); const val = input.value.trim();  
+      if(!val) return;  
+      if(state.customCategories.includes(val)) return window.showToast("Category exists", "error");  
+      state.customCategories.push(val); input.value = ''; renderSettingsCategories();  
+    };  
+    window.removeCategorySetting = function(idx) { state.customCategories.splice(idx, 1); renderSettingsCategories(); };  
+    window.saveStoreSettings = async function() {  
+      if (!state.user || state.profile.role !== 'owner') return;  
+      try {  
+        await setDoc(getPublicDoc('settings', 'general'), { categories: state.customCategories, updatedAt: new Date().toISOString() });  
+        window.showToast("Categories saved globally!");  
+      } catch (e) { window.showToast("Failed to save settings", "error"); }  
+    };  
+    function updateProductEditorCategories() {  
+      const sel = document.getElementById('editProductCategory'); if(!sel) return;  
+      sel.innerHTML = state.customCategories.map(c => `<option value="${c}">${c}</option>`).join('');  
+    }  
+  
+    // POS Calculator  
+    window.updatePosCalcOptions = function() {  
+        const matSelect = document.getElementById('posCalcMaterial');  
+        const varSelect = document.getElementById('posCalcVariant');  
+        const tierSelect = document.getElementById('posCalcTier');  
+          
+        if (!matSelect || !varSelect || !tierSelect) return;  
+        const tier = tierSelect.value;  
+        document.getElementById('posCalcCurrentTier').textContent = tier;  
+  
+        const prevMatVal = matSelect.value;  
+        matSelect.innerHTML = state.materials.map(m => `<option value="${m.id}">${m.name}</option>`).join('');  
+        if(prevMatVal && state.materials.find(m => m.id === prevMatVal)) matSelect.value = prevMatVal;  
+  
+        const selectedMat = state.materials.find(m => m.id === matSelect.value);  
+        if (selectedMat && selectedMat.variants) {  
+            varSelect.innerHTML = selectedMat.variants.map((v, idx) => {  
+                let p = tier === 'Construction' ? v.priceConstruction : tier === 'Moderate' ? v.priceModerate : v.priceBase;  
+                return `<option value="${idx}">${v.spec} (${v.unit}) - ${formatINR(p)}</option>`;  
+            }).join('');  
+        } else { varSelect.innerHTML = ''; }  
+    };  
+  
+    window.addPosCalcItem = function() {  
+        const matId = document.getElementById('posCalcMaterial').value;  
+        const vIdx = document.getElementById('posCalcVariant').value;  
+        const qty = parseInt(document.getElementById('posCalcQty').value) || 1;  
+        const tier = document.getElementById('posCalcTier').value;  
+        if (!matId || vIdx === "") return window.showToast("Select material and variant", "error");  
+  
+        const mat = state.materials.find(m => m.id === matId);  
+        const variant = mat.variants[vIdx];  
+        const price = tier === 'Construction' ? variant.priceConstruction : tier === 'Moderate' ? variant.priceModerate : variant.priceBase;  
+  
+        const existing = state.posCart.find(i => i.matId === matId && i.vIdx === vIdx);  
+        if(existing) { existing.qty += qty; existing.price = price; }   
+        else { state.posCart.push({ matId, vIdx, qty, price, name: mat.name, spec: variant.spec, unit: variant.unit }); }  
+          
+        document.getElementById('posCalcQty').value = 1; renderPosCalc();  
+    };  
+  
+    function renderPosCalc() {  
+       const tbody = document.getElementById('posCalcTableBody');  
+       let total = 0; let items = 0;  
+       if (state.posCart.length === 0) { tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-500 font-bold">Calculator is empty.</td></tr>`; }   
+       else {  
+           tbody.innerHTML = state.posCart.map((item, idx) => {  
+               const lineTotal = item.qty * item.price; total += lineTotal; items += item.qty;  
+               return `  
+                  <tr class="border-b border-slate-800/50 hover:bg-slate-900/50 transition">  
+                     <td class="p-3">  
+                        <div class="font-bold text-white text-sm">${item.name}</div>  
+                        <div class="text-[10px] text-amber-500 uppercase font-bold tracking-wider">${item.spec} / ${item.unit}</div>  
+                     </td>  
+                     <td class="p-3 text-right font-mono text-slate-300">${formatINR(item.price)}</td>  
+                     <td class="p-3 text-right text-white font-bold">${item.qty}</td>  
+                     <td class="p-3 text-right font-mono text-emerald-400 font-bold">${formatINR(lineTotal)}</td>  
+                     <td class="p-3 text-center">  
+                        <button onclick="window.removePosCalcItem(${idx})" class="p-1.5 text-rose-500 hover:bg-rose-500/10 rounded transition"><i data-lucide="x" class="w-4 h-4"></i></button>  
+                     </td>  
+                  </tr>`;  
+           }).join('');  
+       }  
+       document.getElementById('posCalcTotalItems').textContent = items;  
+       document.getElementById('posCalcGrandTotal').textContent = formatINR(total);  
+       lucide.createIcons({ root: tbody });  
+    }  
+  
+    window.removePosCalcItem = function(idx) { state.posCart.splice(idx, 1); renderPosCalc(); };  
+    window.clearPosCalc = function() { state.posCart = []; renderPosCalc(); };  
+  
+    document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });  
+  </script>  </body>  
+</html>  
+Check this code if GitHub launch ready
